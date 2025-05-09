@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor">
-    <img src="images/NEON-NSF-Logo.png" alt="National Ecological Observatory Network Logo" width="200" height="200">
+    <img src="images/NEON-NSF-Logo.png" alt="National Ecological Observatory Network Logo" width="500" height="200">
   </a>
 
 <h3 align="center">National Ecological Observatory Network (NEON) Full Waveform LiDAR Processor and Biomass Analyzer</h3>
@@ -61,7 +61,7 @@
 
 <p align="left">
   <a href="https://jupyter.org/">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/207px-Jupyter_logo.svg.png" width="150"/>
+    <img src="https://jupyter.org/assets/homepage/main-logo.svg" width="150"/>
   </a>
   <a href="https://www.python.org/">
     <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" width="150"/>
