@@ -42,10 +42,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#usage">Usage/Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -54,6 +52,7 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
+Airborne full waveform LiDAR contains more information and allows for additional detailed analysis for scientific concepts like forest structure, biomass, carbon content, and more. NEON full-waveform is a unique open source dataset that contains high-resolution (often 1m) full-waveform LiDAR continuously flown over many different sites. However, this data is hard to process and use. This repository contains a set of functions to process NEON full-waveform LiDAR data. Many of the functions in this repository can be modified on a per usage basis, but provide a good starting foundation for analysis. Other functions in this repository are built to predict above ground biomass using this type of LiDAR data.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
