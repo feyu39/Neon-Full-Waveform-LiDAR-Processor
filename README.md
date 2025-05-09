@@ -59,10 +59,11 @@
 
 ### Built With
 
-_[![Jupyter](https://files.seeklogo.com/download/8b155kpxr1ei2xma3jg63faljoyk7z/jupyter-vector-logo-seeklogo.zip)](https://jupyter.org/)
-_[![Python](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)](https://www.python.org/)
-_[![Scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)](https://scikit-learn.org/stable/)
-_[![Numpy](https://github.com/numpy/numpy/blob/main/branding/logo/primary/numpylogo.png?raw=true)](https://numpy.org/) \*[![Pandas](https://pandas.pydata.org/static/img/pandas.svg)](https://pandas.pydata.org/)
+[![Jupyter](https://jupyter.org/assets/homepage/main-logo.svg)](https://jupyter.org/)
+[![Python](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)](https://www.python.org/)
+[![scikit-learn](https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg)](https://scikit-learn.org/stable/)
+[![Numpy](https://github.com/numpy/numpy/blob/main/branding/logo/primary/numpylogo.png?raw=true)](https://numpy.org/)
+[![Pandas](https://pandas.pydata.org/static/img/pandas.svg)](https://pandas.pydata.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,15 +73,15 @@ _[![Numpy](https://github.com/numpy/numpy/blob/main/branding/logo/primary/numpyl
 
 ### Prerequisites
 
-Python 3.12 or later
-Jupyter
-Ipykernel
-Numpy
-Pandas
-Matplotlib
-scikit-learn
-scipy
-rioxarray
+- Python 3.12 or later
+- Jupyter
+- Ipykernel
+- Numpy
+- Pandas
+- Matplotlib
+- scikit-learn
+- scipy
+- rioxarray
 
 ### Installation
 
@@ -119,9 +120,7 @@ There are two main files: neon_processor_batch and neon_processor_full. Neon_pro
 
 The general workflow of the code is to create a main pandas/excel table of waveform relative revelation data, waveform geolocation information, in situ biomass values, and k-means cluster assignments to get all the data in one place. Then, all analyses functions such as regression and k-means clustering are done by feeding in this table as input. See the **cumulative_waveform_analysis_main** function for more details.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Neon_processor_batch functions
+### neon_processor_batch functions
 
 Important: Make sure to set the lidar_instrument_name and detection_threshold variables to the right sensors before running the code
 
@@ -130,90 +129,86 @@ Quick and simple peak detection using derivatives and 2nd derivatives of the wav
 
 Parameters:
 waveform: _list (float)_
-
 - List of intensity values of the waveform
-  waveform*intensity_threshold: \_int*
+  waveform_intensity_threshold: _int_
 - Minimum intensity threshold from which peaks are detected above
 
 Returns:
-return*location_count: \_int*
-
+return_location_count: _int_
 - Number of peaks  
-  return*peak_location_list: \_list (int)*
+return_peak_location_list: _list(int)_
 - Array containing indices of waveform array where peaks are  
-  return*location_list_x: \_list (float)*
-- Same as return*peak_location_list, just in float format  
-  return_intensity_list: \_list (float)*
+return_location_list_x: _list (float)_
+- Same as return_peak_location_list, just in float format  
+return_intensity_list: _list (float)_
 - Intensity at each peak
 
 **read_NEONAOP_pulsewaves_pulse_information_header_only(pls_file, lidar_instrument_name)**
 Reads pulse metadata information from a NEON AOP PulseWaves (.pls) file without geolocation filtering, extracting variables necessary for future processing.
 
 Parameters:
-pls*file: \_str*
-
+pls_file: *str*
 - Path to PulseWaves (.pls) file to read
-  lidar*instrument_name : \_str*
+  lidar_instrument_name: *str*
 - Name of the lidar instrument (e.g., 'Gemini', 'Galaxy2024', 'LMS-Q780')
 
-Returns
+Returns:
 A tuple containing the following elements:
-instrument*name : \_str*
-
+instrument_name: *str*
 - Name of the instrument (e.g., 'Gemini', 'Galaxy', 'LMS-Q780')
-  number*of_pulses : \_numpy.ndarray*
+number_of_pulses: *numpy.ndarray*
 - Total number of pulses in the file
-  xyz*anchor_array : \_numpy.ndarray*
+xyz_anchor_array: *numpy.ndarray*
 - Array of anchor point coordinates (x,y,z) for each pulse
-  dxdydz*array : \_numpy.ndarray*
+dxdydz_array: *numpy.ndarray*
 - Array of direction vectors (dx,dy,dz) for each pulse
-  xyz*first_array : \_numpy.ndarray*
+xyz_first_array: *numpy.ndarray*
 - Array of first return coordinates (x,y,z) for each pulse
-  xyz*last_array : \_numpy.ndarray*
+xyz_last_array: *numpy.ndarray*
 - Array of last return coordinates (x,y,z) for each pulse
-  offset*to_pulse_data : \_numpy.ndarray*
+offset_to_pulse_data: *numpy.ndarray*
 - Byte offset to the start of pulse data
-  pulse*size : \_numpy.ndarray*
+pulse_size: *numpy.ndarray*
 - Size of each pulse record in bytes
-  T*scale_factor : \_numpy.ndarray*
+T_scale_factor: *numpy.ndarray*
 - Scale factor for GPS time
-  T*offset : \_numpy.ndarray*
+T_offset: *numpy.ndarray*
 - Offset for GPS time
-  x*scale_factor : \_numpy.ndarray*
+x_scale_factor: *numpy.ndarray*
 - Scale factor for x coordinates
-  x*offset : \_numpy.ndarray*
+x_offset: *numpy.ndarray*
 - Offset for x coordinates
-  y*scale_factor : \_numpy.ndarray*
+y_scale_factor: *numpy.ndarray*
 - Scale factor for y coordinates
-  y*offset : \_numpy.ndarray*
+y_offset: *numpy.ndarray*
 - Offset for y coordinates
-  z*scale_factor : \_numpy.ndarray*
+z_scale_factor: *numpy.ndarray*
 - Scale factor for z coordinates
-  z*offset : \_numpy.ndarray*
+z_offset: *numpy.ndarray*
 - Offset for z coordinates
-  sampling*record_pulse_descriptor_index_lookup_array : \_numpy.ndarray*
+sampling_record_pulse_descriptor_index_lookup_array: *numpy.ndarray*
 - Array mapping pulse descriptors to sampling records
-  pulse*descriptor_optical_center_to_anchor_point_array : \_numpy.ndarray*
+pulse_descriptor_optical_center_to_anchor_point_array: *numpy.ndarray*
 - Array of optical center to anchor point distances
-  pulse*descriptor_number_of_extra_wave_bytes_array : \_numpy.ndarray*
+pulse_descriptor_number_of_extra_wave_bytes_array: *numpy.ndarray*
 - Array of extra waveform bytes per pulse
-  pulse*descriptor_number_of_samplings_array : \_numpy.ndarray*
+pulse_descriptor_number_of_samplings_array: *numpy.ndarray*
 - Array of number of samplings per pulse
-  sampling*record_bits_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_bits_for_duration_from_anchor_array: *numpy.ndarray*
 - Array of bit counts for duration from anchor
-  sampling*record_scale_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_scale_for_duration_from_anchor_array: *numpy.ndarray*
 - Array of scale factors for duration from anchor
-  sampling*record_offset_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_offset_for_duration_from_anchor_array: *numpy.ndarray*
 - Array of offsets for duration from anchor
-  sampling*record_bits_for_number_of_segments_array : \_numpy.ndarray*
+sampling_record_bits_for_number_of_segments_array: *numpy.ndarray*
 - Array of bit counts for number of segments
-  sampling*record_bits_for_number_of_samples_array : \_numpy.ndarray*
+sampling_record_bits_for_number_of_samples_array: *numpy.ndarray*
 - Array of bit counts for number of samples
-  sampling*record_number_of_segments_array : \_numpy.ndarray*
+sampling_record_number_of_segments_array: *numpy.ndarray*
 - Array of number of segments per sampling
-  sampling*record_number_of_samples_array : \_numpy.ndarray*
+sampling_record_number_of_samples_array: *numpy.ndarray*
 - Array of number of samples per segment
-  sampling*record_bits_per_sample_array : \_numpy.ndarray*
+sampling_record_bits_per_sample_array: *numpy.ndarray*
 - Array of bits per sample
 
 More details about the pulsewaves format can be found here at this <a href="https://github.com/PulseWaves/Specification/blob/master/specification.rst">link</a>
@@ -223,143 +218,138 @@ Reads a single waveform (.wvs) file using metadata from Pulse (.pls) file, retur
 waveform intensity values, easting, northing, elevation values, offset, and if waveform contains multiple segments
 
 Parameters:
-readbin*pls_file : \_str (path)*
-
+readbin_pls_file: *str (path)*
 - Open binary file object for the .pls file (PulseWaves).
-  readbin*wvs_file : \_str (path)*
+readbin_wvs_file: *str (path)*
 - Open binary file object for the .wvs file (Waveforms).
-  instrument*name : \_str*
+instrument_name: *str*
 - Name of the instrument (e.g., 'Gemini', 'Galaxy').
-  lidar*instrument_name : \_str*
+lidar_instrument_name: *str*
 - Full lidar system name (e.g., 'Galaxy2024', 'LMS-Q780').
-  iPulse : _int_
+iPulse: _int_
 - Index of the pulse to read
-  offset*to_pulse_data : \_int*
+offset_to_pulse_data: _int_
 - Byte offset to the beginning of pulse data in the .pls file.
-  pulse*size : \_int*
+pulse_size: _int_
 - Size in bytes of each pulse record.
-  T*scale_factor : \_float*
+T_scale_factor: _float_
 - Scale factor to convert GPS time to seconds.
-  T*offset : \_float*
+T_offset: _float_
 - Offset to add to scaled GPS time.
-  x*scale_factor : \_float*
+x_scale_factor: _float_
 - Scale factor for x coordinates.
-  x*offset : \_float*
+x_offset: _float_
 - Offset for x coordinates.
-  y*scale_factor : \_float*
+y_scale_factor: _float_
 - Scale factor for y coordinates.
-  y*offset : \_float*
+y_offset: _float_
 - Offset for y coordinates.
-  z*scale_factor : \_float*
+z_scale_factor: _float_
 - Scale factor for z coordinates.
-  z*offset : \_float*
+z_offset: _float_
 - Offset for z coordinates.
-  sampling*record_pulse_descriptor_index_lookup_array : \_numpy.ndarray*
+sampling_record_pulse_descriptor_index_lookup_array: _numpy.ndarray_
 - Array mapping pulse descriptors to sampling record indices.
-  pulse*descriptor_optical_center_to_anchor_point_array : \_numpy.ndarray*
+pulse_descriptor_optical_center_to_anchor_point_array: _numpy.ndarray_
 - Distance from optical center to anchor point for each pulse descriptor.
-  pulse*descriptor_number_of_extra_wave_bytes_array : \_numpy.ndarray*
+pulse_descriptor_number_of_extra_wave_bytes_array: _numpy.ndarray_
 - Number of extra bytes associated with each waveform, by pulse descriptor.
-  pulse*descriptor_number_of_samplings_array : \_numpy.ndarray*
+pulse_descriptor_number_of_samplings_array: _numpy.ndarray_
 - Number of waveform samplings for each pulse descriptor.
-  sampling*record_bits_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_bits_for_duration_from_anchor_array: _numpy.ndarray_  
 - Bits used to represent the duration from the anchor for each sampling.
-  sampling*record_scale_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_scale_for_duration_from_anchor_array: _numpy.ndarray_
 - Scale factor for converting duration-from-anchor values.
-  sampling*record_offset_for_duration_from_anchor_array : \_numpy.ndarray*
+sampling_record_offset_for_duration_from_anchor_array: _numpy.ndarray_
 - Offset to apply to scaled duration-from-anchor values.
-  sampling*record_bits_for_number_of_segments_array : \_numpy.ndarray*
+sampling_record_bits_for_number_of_segments_array: _numpy.ndarray_
 - Bits used to encode number of segments in each waveform sampling.
-  sampling*record_bits_for_number_of_samples_array : \_numpy.ndarray*
+sampling_record_bits_for_number_of_samples_array: _numpy.ndarray_
 - Bits used to encode number of samples in each segment.
-  sampling*record_number_of_segments_array : \_numpy.ndarray*
+sampling_record_number_of_segments_array: _numpy.ndarray_
 - Number of segments in the waveform if not explicitly encoded.
-  sampling*record_number_of_samples_array : \_numpy.ndarray*
+sampling_record_number_of_samples_array: _numpy.ndarray_
 - Number of samples per segment if not explicitly encoded.
-  sampling*record_bits_per_sample_array : \_numpy.ndarray*
+sampling_record_bits_per_sample_array: _numpy.ndarray_
 - Bits used to store each sample in the waveform.
 
 Returns:
-neon*waveform_return_pulse : \_numpy.ndarray (float)*
-
+neon_waveform_return_pulse: _numpy.ndarray (float)_
 - Array of intensity values for the waveform
-  neon*waveform_x_axis : \_numpy.ndarray (float)*
+neon_waveform_x_axis: _numpy.ndarray (float)_
 - Array of easting values for the waveform
-  neon*waveform_y_axis : \_numpy.ndarray (float)*
+neon_waveform_y_axis: _numpy.ndarray (float)_
 - Array of northing values for the waveform
-  neon*waveform_z_axis : \_numpy.ndarray (float)*
+neon_waveform_z_axis: _numpy.ndarray (float)_
 - Array of elevation values for the waveform
-  neon*waveform_offset : \_float*
+neon_waveform_offset: _float_
 - Smallest intensity value in the waveform
 
 **normalize_cumulative_return_energy(waveform_intensity_x, waveform_elevation_y, plot)**
 Normalize return energy (intensity) to a scale of 0.0 to 1.0 and get the relative elevation of the waveform at each intensity point by subtracting each elevation from the minimum waveform elevation point. Think about it as a “summary” of the raw waveform curve for all future analysis. Based on LVIS interpretation: <a href="https://lvis.gsfc.nasa.gov/Data/DataStructure.html">link</a>
 
 Parameters:
-waveform*intensity_x: \_1D array of floats*
+waveform_intensity_x: *1D array of floats*
 
 - Raw waveform intensity/return energy values
-  waveform*elevation_y: \_1D array of floats*
+waveform_elevation_y: *1D array of floats*
 - Raw waveform elevation values in meters
 
 Returns:
-stacked*intensity_elevation: \_1D Numpy array of floats*
-
+stacked_intensity_elevation: *1D array of floats*
 - Formatted as a 1D array: [Intensity1, Elevation1, Intensity2, Elevation2…] to feed into future scipy and scikit-learn functions
 
 **interpolate_waveform_values(waveform, plot)**
 Use scipy’s interpolate1d function to interpolate a curve based on existing normalized intensity and elevation values to ensure all normalized waveforms are the same input size. X intensity values range from 0 - 1.0 inclusive with 0.025 increments (41 values), and y elevation values are associated with each intensity increment.
 
 Parameters:
-waveform: _1D array of floats_
-Stacked normalized cumulative return energy curve in the same format as [intensity1, elevation1…]
-plot: _bool_
-Plot the new interpolated normalized cumulative return energy curve if True
+waveform: *1D array of floats*
+- Stacked normalized cumulative return energy curve in the same format as [intensity1, elevation1…]
+plot: *bool*
+- Plot the new interpolated normalized cumulative return energy curve if True
 
 Returns:
-interpolated*stacked_intensity_elevation: \_1D array of floats*
-Interpolated cumulative signal intensity and interpolated relative elevation at each intensity stacked in a 1D array similar to previous formats of [intensity1, elevation1…]
-outlier: _bool_
-Set to true if final relative elevation value is above 150 meters (a processing error)
+interpolated_stacked_intensity_elevation: *1D array of floats*
+- Interpolated cumulative signal intensity and interpolated relative elevation at each intensity stacked in a 1D array similar to previous formats of [intensity1, elevation1…]
+outlier: *bool*
+- Set to true if final relative elevation value is above 150 meters (a processing error)
 
 **calculate_silhouette_score(kmeans_fitted, X_train, k)**
 The silhouette score is a metric of k-means clustering performance. From scikit-learn’s documentation: “​​The best value is 1 and the worst value is -1. Values near 0 indicate overlapping clusters. Negative values generally indicate that a sample has been assigned to the wrong cluster, as a different cluster is more similar.” This also helps determine the right k-number.
 More information on scikit-learn’s guide
 
 Parameters:
-kmeans*fitted: \_scikit-learn object*
-One scikit k-means trained classifier
-X*train: \_1D array*
-Training dataset that k-means was trained on
-k: _int_
-number of clusters
+kmeans_fitted: *scikit-learn object*
+- One scikit k-means trained classifier
+X_train: *1D array*
+- Training dataset that k-means was trained on
+k: *int*
+- number of clusters
 
 Returns:
 Prints out the silhouette score of the model
 
-**ccalculate_cumulative_signal_slopes(interpolated_waveforms, min_signal_level, max_signal_level)**
+**calculate_cumulative_signal_slopes(interpolated_waveforms, min_signal_level, max_signal_level)**
 Calculate a linear slope for each normalized waveform between two intensity points. Sometimes used as a LiDAR metric in studies.
 
 Parameters:
-interpolated*waveforms: \_2D np.array*
-
+interpolated_waveforms: *2D np.array*
 - 2D np.array of interpolated cumulative waveforms
-  min*signal_level: \_float*
+min_signal_level: *float*
 - Minimum intensity point (factor 0.025) from which to determine slope from
-  max*signal_level: \_float*
+max_signal_level: *float*
 - Maximum intensity point (factor 0.025) from which to determine slope from
 
 Returns:
-Waveform*slopes: \_2D array of slopes for each index in the input*
+waveform_slopes: *2D array of slopes for each index in the input*
 
 **check_waveform_normality(interpolated_waveforms, waveform)**
 Plot a QQ plot for intensity and elevation of each waveform or waveform slopes to see if distribution of waveforms is normal.
 
 Parameters:
-interpolated*waveforms: \_2D np.array*
-
+interpolated_waveforms: *2D np.array*
 - 2D np.array of interpolated cumulative waveforms or slopes (1D array)
-  waveform: _bool_
+waveform: *bool*
 - Whether the input is a waveform or slope
 
 Returns:
@@ -369,34 +359,314 @@ QQ plot of waveform intensity, elevation, or slope
 Calculate Z-score analysis and identify outliers 3 z-scores away
 
 Parameters:
-waveform*arr: \_1D array of floats*
-
+waveform_arr: *_1D array of floats_*
 - 1D array of all waveform slope values
 
 Returns:
-_1D array of indices_
-
+1D array of indices
 - Array of indices which are higher than 3 z-scores away
 
 **calculate_neighbors_distances(interpolated_waveforms, k)**
 Calculate the mean distances to k-nearest neighbors for each waveform. Not used in analysis.
 
 Parameters:
-interpolated*waveforms: \_2D array*
-2D array of interpolated cumulative waveforms
-k: _int_
-Number of clusters
+interpolated_waveforms: *2D array*
+- 2D array of interpolated cumulative waveforms
+k: *int*
+- Number of clusters
 
-<!-- ROADMAP -->
+**train_k_means_cluster_cumulative_returns(interpolated_waveforms_train, k_list, evaluate_elbow)**
+Train a scikit-learn k-means cluster object for every k in the k-list
 
-## Roadmap
+Parameters:
+interpolated_waveforms_train: *2D Numpy array of floats*
+- 2D numpy array of interpolated waveforms in the same format as other functions [intensity1, elevation1…]
+k-list: *Array of ints for k-number of clusters*
+evaluate_elbow: *bool*
+- If set to True, plot the elbow method heuristic, the log sum of squared distance (loss function) at each k. The k at which an “elbow” appears should be chosen as the number of clusters. 
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+Returns:
+k_means_classifiers: 1D array of k-means trained classifiers for each k in the k-list
 
-See the [open issues](https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor/issues) for a full list of proposed features (and known issues).
+**test_k_means_cluster_cumulative_returns(k_means_classifiers, X_test, k_list, plot_raw, evaluate_metrics)**
+Get the cluster centers and assign each waveform to a cluster based for each trained k-means classifier.
+
+Parameters:
+k_means_classifiers: 1D array of scikit-learn k-means classifier objects
+X_test: 1D Numpy array of waveforms in intensity1, elevation1… format
+k_list: 1D array of number of clusters associated with each k-means classifier object
+plot_raw: *bool*
+- Set true to plot the X_test waveform data
+evaluate_metrics: *bool*
+- Get the silhouette and davies bouldin score of each k-means cluster object if set to true
+
+Returns
+Cluster_centers: *3D np.array*
+- A list of 2D Numpy arrays of cluster centers, where each 2D numpy array is a of size (number_of_clusters, waveform_array) for each k-means classifier (each cluster has its own waveform representing the center)
+test_cluster_assignments: *2D array*
+- A list of 1D arrays containing the cluster number label (integer) that each waveform belongs to for each k_means classifier object. For example, if there are two classifier objects, then this variable would contain two 1D arrays with the size of the number of samples in X_test
+
+*get_apparent_individual_biomass_information(apparent_individual_table, mapping_tagging_table, resolution, debug)*
+Get the geolocation information and NEON individual ID of each biomass measurement that meets the resolution requirements. Based on NEON Vegetation Structure data product
+
+Parameters:
+apparent_individual_table: *str*
+- Folder directory link to the vst_apparentindividual table for a specific date taken from NEON vegetation structure data. This table contains in situ data for diameter breast height, canopy height, and rough geolocation data
+mapping_tagging_table: *str*
+- Folder directory link to the vst_mapping and tagging table for a specific date taken from NEON vegetation structure data. This table contains precise geolocation information and species classification data
+resolution: *int*
+- Int for the max size of each biomass measurement. Coarser resolutions will include more points but less precision
+debug: *bool*
+- Print out location and ID information if True
+
+Returns:
+northing_arr: *1D np.array of floats*
+- Array of northing values corresponding to the biomass measurements
+easting_arr: *1D np.array of floats*
+- Array of easting values corresponding to the biomass measurements
+individual_id_arr: *1D np.array of strings*
+- Array of NEON individual IDs corresponding to the biomass measurements
+total_data_count: *int*
+- Total number of biomass measurements that meet the resolution requirements
+
+**calculate_indv_tree_biomass(genus, family, species)**
+Lookup table for tree biomass regression coefficients based on species and corresponding specific gravity taken from the US Forest Service Chojnacky paper.
+
+Parameters:
+Family: *str*
+- Plant family
+Genus: *str*
+- Plant genus
+Species: *str*
+- Plant species, with the first letter lowercase
+
+Returns:
+B0: *float*
+- y-intercept coefficient of tree biomass
+B1: *float*
+- Slope coefficient of tree biomass, multiply by np.log(dbh)
+
+**calculate_total_tree_biomass(northing_area, easting_area, resolution, mapping_tagging_table, apparent_individual_table)**
+Calculate total biomass value in the waveform northing and easting point and any surrounding area based on the resolution.
+
+Parameters:
+northing_area: *float*
+- Northing coordinate of the waveform
+easting_area: *float*
+- Easting coordinate of the waveform
+resolution: *int*
+- Resolution to get the surrounding biomass area
+apparent_individual_table: *str*
+- Folder directory link to vst_apparentindividual table
+
+Returns:
+total_biomass: *float*
+- Float with the total biomass in kg of the area
+
+find_associated_biomass_waveform_group(waveform_x_axis, waveform_y_axis, grouped_biomass, shot_number)
+See if the geolocation of a waveform is located among a group of biomass geolocation values. Used to locate if a waveform has in situ data associated with it. Assumes that general range of biomass geolocation values is known.
+
+Parameters
+waveform_x_axis: *1D Array*
+- Waveform easting values
+waveform_y_axis: *1D Array*
+- Waveform northing values
+grouped_biomass: *2D Array*
+- Biomass geolocation range in the form of [minimum easting, maximum easting, minimum northing, maximum northing] for each biomass group
+shot_number: *int*
+- Pulsewave number of waveform
+
+Returns:
+Biomass_found: *bool*
+- Bool that is set true if in situ biomass value is found for the pulsewave
+Group: *int*
+- The group that the associated biomass number belongs to, based on its index
+
+**find_associated_biomass_waveform_pulse_number(biomass_northing_arr, biomass_easting_arr, waveform_x_axis, waveform_y_axis, debug)**
+Get the precise mean of the northing and easting values of a waveform if it is associated with a biomass value.
+
+Parameters:
+Biomass_northing_arr: *1D array of floats*
+- Float array of all in situ biomass northing values returned from get_apparent_individual_biomass_information
+Biomass_easting_arr: *1D array of floats*
+- Float array of all in situ biomass easting values returned from get_apparent_individual_biomass_information
+Waveform_x_axis: *1D array of floats*
+- Float array of easting geolocation values of the waveform 
+waveform_y_axis: *1D array of floats*
+- Float array of northing geolocation values of the waveform 
+resolution: *int*
+- Area to search around biomass geolocation values to see if waveform geolocation falls into the biomass area. Should match calculate_tree_biomass resolution value for most accurate results
+debug: *bool*
+- Print out geolocation and number of biomass values associated with the waveform if True
+
+Returns:
+biomass_found: *bool*
+- Whether or not at least one in-situ biomass value was found for the waveform
+waveform_easting: *float*
+- Mean of easting values for the waveform
+waveform_northing: *float*
+- Mean of northing values for the waveform
+
+**find_biomass_tree_heights(northing, easting, resolution, mapping_tagging_table, apparent_individual_table)**
+Get in-situ tree heights for each waveform based on geolocation information.
+
+Parameters:
+northing: *float*
+- Float of waveform northing value
+easting: *float*
+- Float of waveform easting value
+resolution: *int*
+- Integer of resolution to search area around waveform northing and easting. Should match get_apparent_individual_biomass_information resolution
+mapping_tagging_table: *str*
+- Folder directory link to the vst_mappingandtagging table from the NEON vegetation structure dataset
+apparent_individual_table: *str*
+- Folder directory link to the vst_apparentindividual table from the NEON vegetation structure dataset
+
+Returns
+Height: Float of the total in situ height of the tree in meters
+
+**add_waveform_data_row_with_biomass(waveform_file_name, interp_waveform, waveform_x_axis, waveform_y_axis, biomass_value, cluster_number, shot_number, biomass_group_number)**
+Helper function to add a row to the main biomass-waveform table given extra data using a pandas Dataframe.
+Each row of the main biomass-waveform table contains these indexes in order: 
+FileName, Pulsenumber, Biomass, Easting, Northing, Group, Cluster
+
+Parameters:
+Waveform_file_name: *str* 
+- Contains the file postfix deliminating the region(such as L022) 
+Interp_waveform: *1D array*
+- Waveform data with intensity1.., elevation1…
+Waveform_x_axis: *1D array of floats*
+- Waveform easting values
+Waveform_y_axis: *1D array of floats*
+- Waveform northing values
+Biomass_value: *float*
+- In-situ biomass value in kg
+Cluster_number: *int*
+- Cluster that waveform is assigned to
+Shot_number: *int*
+- Pulsenumber of the waveform
+Biomass_group_number: *int*
+- Group number that corresponds to the return value in find_associated_biomass_waveform_group
+
+Returns:
+Waveform_biomass_df: *pandas dataframe*
+- Pandas dataframe with existing table concatenated with new table
+
+**split_test_train_cluster_indices(cluster_group_values, number_of_clusters, clusters_with_no_data, clusters_with_less_than_4, split_percentage)**
+Split data into training and test datasets based on split percentage
+
+Parameters:
+cluster_group_values: *1D array of ints*
+- List of cluster group assignments generated from test_k_means_cluster_cumulative_returns
+number_of_clusters: *int*
+- Number of clusters corresponding to k (int)
+clusters_with_no_data: *1D array of ints*
+- List of the cluster numbers with no data. Can print unique_clusters in the function to see which clusters have values
+clusters_with_less_than_4: *1D array of ints*
+- List of cluster numbers with less than 4 data points, which is the minimum needed for a 75-25 split
+split_percentage: *Float (0-1.0)* 
+- Percentage of data assigned to test data, with the rest assigned to training data
+
+Returns:
+train_indices_aggregate: *1D array of ints*  
+- List of training indices aggregated together, ignoring individual clusters based on split percentage  
+test_indices_aggregate: *1D array of ints*  
+- List of test indices aggregated together, ignoring individual clusters based on split percentage  
+Cluster_group_indices_train: *2D array of ints*  
+- List of training indices split based on split percentages for each cluster group. For example, if 0.75 is the training split, each cluster will have 75% of its total data in Cluster_group_indices_train indexed by cluster number  
+Cluster_group_indices_test: *2D array of ints*  
+- List of test indices split based on split percentages for each cluster group
+
+**perform_regression_main(waveform_biomass_data_file)**
+Custom function based on what regression calculations need to be done.
+
+Parameters:
+Waveform_biomass_data_file: *str*  
+- String directory link to main table containing waveform and biomass data generated by cumulative_waveform_analysis_main
+
+Returns:
+- Result of regression analysis based on the waveform and biomass data
+
+**perform_general_linear_regression(waveform_canopy_heights, biomass_values, waveform_canopy_graph_heights, graph_title)**
+Use scikitlearn’s LinearRegression model to create one linear regression relationship across all data and clusters.
+
+Parameters:
+waveform_metric: *n-dimensional np.array*
+- Independent/predictor variable data from the waveform in the form of a numpy array with the size of (n_samples, n_features). Generally, a maximum of two features work the best. From our analysis, canopy height is the best predictor of above ground biomass.
+biomass_values: *1D array*
+- 1D array of biomass values with the same n_samples as waveform_metric
+graph_title: *string*
+- String for the graph title, change based on the different waveform metric used
+
+Returns:
+sorted_waveform_canopy_heights: *n-dimensional np.array*
+- Sorted waveform_metric (input) values
+sorted_regression_predictions: *n_samples 1D Array*
+- Sorted regression predictions based on the linear regression model the size of n_samples
+
+perform_clustered_linear_regression(waveform_canopy_heights, biomass_values, number_of_clusters, cluster_group_values, clusters_with_no_data, clusters_with_limited_data, split_percentage)
+Create a linear regression equation for each cluster’s data
+
+Parameters:
+waveform_canopy_heights: *n-dimensional np.array*
+Same as waveform_metric in perform_general_linear_regression
+biomass_values: *1D array*
+- 1D array of biomass values with the same n_samples as waveform_metric
+number_of_clusters: *int*
+- number of clusters k
+cluster_group_values: *1D array of ints*
+- List of cluster group assignments generated from test_k_means_cluster_cumulative_returns
+clusters_with_no_data: *1D array of ints*
+- List of the cluster numbers (int) with no data
+clusters_with_limited_data: *1D array of ints*
+- List of cluster numbers (int) with less than split_percentage data points (generally less than 4 data points). 
+
+Returns:
+Prints out linear regression equation for each cluster along with R^2 score
+Graph points used to create the regression
+
+**perform_exponential_regression(waveform_canopy_heights_flattened, biomass_values)**
+Create an exponential regression in the form of a * np.exp(b * t) + c to RH and biomass
+
+Parameters:
+waveform_canopy_heights_flattened: *1D array* 
+- Waveform canopy heights or another metric
+biomass_values: *1D array* 
+- Corresponding biomass values
+
+Returns:
+Sorted x_input and corresponding exponential predictions
+
+**perform_polynomial_regression(waveform_biomass_data_file)**
+Fit a degree 4 polynomial regression function to data
+
+Parameters:
+Waveform_biomass_data_file: *str*  
+- String directory link to the main table containing waveform and biomass data 
+
+Returns:
+- Prints RMSE of the polynomial regression function
+
+**cumulative_waveform_analysis_main(waveform_file, waveform_start_index, waveform_finish_index, biomass_group_num, mapping_tagging_table, apparent_individual_table, waveform_output_file_name)**
+Main waveform processing function to save waveform and biomass into a csv file compatible for regression analysis and clustering functions. Returns a csv file with columns of NEON file number, Pulsenumber, in-situ biomass number associated with waveform, easting, northing, biomass group number, dummy cluster number, and relative elevation at cumulative intensity intervals of 0.025 (waveform data). If saving data to a file, uncomment “save main biomass waveform data” line in the function
+
+waveform_file: *str*
+- Directory link to full waveform NEON file
+waveform_start_index: *int*  
+- Pulsewaves start index to start the analysis on. If any in-situ biomass is found associated with the waveform, the function will save it to the waveform_output_file_name
+waveform_finish_index: *int*  
+- Pulsewaves end index to conclude analysis
+biomass_group_num: *int*  
+- Biomass group used for internal tracking 
+mapping_tagging_table: *str*  
+- Directory link to NEON mapping and tagging table
+apparent_individual_table: *str*  
+- Directory link to apparent_individual_table table
+waveform_output_file_name: *str*  
+- File name to save waveforms to. Ensure this group is different for each batch of waveform indices analyzed, so that data isn’t overwritten when saved.
+
+Returns:
+- A csv file with the following columns: NEON file number, Pulsenumber, in-situ biomass number associated with waveform, easting, northing, biomass group number, dummy cluster number, and relative elevations at cumulative intensity intervals of 0.025 (waveform data) at each column. The file is saved to the waveform_output_file_name link
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -417,19 +687,6 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Top contributors:
-
-<a href="https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=feyu39/Neon-Full-Waveform-LiDAR-Processor" alt="contrib.rocks image" />
-</a>
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the project_license. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 
@@ -445,9 +702,7 @@ Project Link: [https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor](htt
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- Thank you Dr. Jessica Fayne and Dr. Keith Krause for your guidance, support, and contributions to this project. Thank you to the University of Michigan and Dr. Fayne's Remote Sensing Lab for providing the resources and support to make this project possible.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
