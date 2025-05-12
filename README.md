@@ -799,7 +799,8 @@ Don't forget to give the project a star! Thanks again!
 ## Contact
 
 Created by:
-Felix Yu - yu.felix39@gmail.com, with the help of others.
+Felix Yu - yu.felix39@gmail.com, with the help of Dr. Fayne and Dr. Krause.
+HYLUCC Lab - jfayne@umich.edu
 Felix's LinkedIn: [https://www.linkedin.com/in/felixwyu/](https://www.linkedin.com/in/felixwyu/)
 Project Link: [https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor](https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor)
 
@@ -808,7 +809,7 @@ Project Link: [https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor](htt
 
 ## Acknowledgments
 
-- Thank you Dr. Jessica Fayne and Dr. Keith Krause for your guidance, support, and contributions to this project. Thank you to the University of Michigan and Dr. Fayne's Remote Sensing Lab for providing the resources and support to make this project possible.
+- Thank you Dr. Jessica Fayne and Dr. Keith Krause for your guidance, support, and contributions to this project. Thank you to the University of Michigan and Dr. Fayne's Remote Sensing Lab (HYLUCC) for providing the resources and support to make this project possible.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
