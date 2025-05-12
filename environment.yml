@@ -1,0 +1,13 @@
+name: neon2
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - jupyter
+  - ipykernel
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - scipy
+  - rioxarray
