@@ -127,9 +127,9 @@ jupyter lab
 
 ## Documentation/Usage
 
-There are two main files: neon_processor_batch and neon_processor_full. Neon_processor_batch is a quicker way to analyze pulsewaves data than the full processor, but it does not filter based on geolocation data. Therefore, if you already know the pulsenumbers you want to analyze or want to test out functions first, use neon_processor_batch. However, if you want to filter out the pulsewaves file based on geolocation and analyze it, use neon_processor_full.
+There are two main files: neon_processor_batch and neon_processor_full. Neon_processor_batch is a quicker way to analyze pulsewaves data than the full processor, but it does not filter based on geolocation data. Therefore, if you already know the pulsenumbers you want to analyze or want to test out functions first, use neon_processor_batch. However, if you want to filter out the pulsewaves file based on geolocation and then analyze it, use neon_processor_full. Neon_processor_full differs as it finds all the waveforms in the specified geolocation area, and then the waveform_aoi variable is used for further analysis instead of specific pulsewave numbers
 
-The general workflow of the code is to create a main pandas/excel table of waveform relative revelation data, waveform geolocation information, in situ biomass values, and k-means cluster assignments to get all the data in one place. Then, all analyses functions such as regression and k-means clustering are done by feeding in this table as input. See the **cumulative_waveform_analysis_main** function for more details.
+The general workflow of the code is to create a main pandas/excel table of waveform relative elevation data, waveform geolocation information, in situ biomass values, and k-means cluster assignments to get all the data in one place. Then, all analysis functions such as regression and k-means clustering are done by feeding in this table as input. See the **cumulative_waveform_analysis_main** function for more details.
 
 ### neon_processor_batch functions
 
@@ -678,21 +678,117 @@ waveform_output_file_name: *str*
 Returns:
 - A csv file with the following columns: NEON file number, Pulsenumber, in-situ biomass number associated with waveform, easting, northing, biomass group number, dummy cluster number, and relative elevations at cumulative intensity intervals of 0.025 (waveform data) at each column. The file is saved to the waveform_output_file_name link
 
+**save_waveform_height_data(wave_file, start_index, end_index, waveform_nums)**
+- Get the bottom elevation of waveforms corresponding to pulsenumbers in waveform_nums and the highest elevation of the waveform and save to a .csv file.
+
+Parameters: 
+wave_file: *str*
+- Directory link to full waveform NEON file
+start_index: *int*
+- Start pulsewave index of the waveform to analyze
+end_index: *int*
+- End pulsewave index of the waveform to analyze
+waveform_nums: *1D array of ints*
+- Array of pulsenumbers to analyze
+
+Returns:
+- A csv file with the following columns: NEON file number, Pulsenumber, bottom elevation of waveform, and highest elevation of waveform. The file is saved in the format of waveform_elevations_{waveform_file_name}.csv
+
+**get_dtm_surface_elevations(waveform_file_df, dtm_list, dtm_folder)**
+- Get surface elevations from NEON D01 DP3 DTM files for each waveform based on geolocation data in the waveform csv
+
+Parameters:
+waveform_file_df: *pandas dataframe*
+- Dataframe containing the waveform data with geolocation information, such as the output of **cumulative_waveform_analysis_main**
+dtm_list: *list of strings*
+- List of DTM file names to analyze
+dtm_folder: *str*
+- Directory link to the folder containing the DTM files
+
+Returns:
+pulse_numbers: *1D array of ints*
+- Array of pulse numbers corresponding to surface elevation data
+surface_elevation_numbers: *1D array of floats*
+- Array of surface elevation values corresponding to pulse numbers
+
+**get_cumulative_return_curves(waveform_pulsewaves_start_arr, waveform_pulsewaves_end_arr, pls_file, wvs_file)**
+- Get the cumulative return curves for each waveform in the PulseWaves file. This function is used as a helper for k-means clustering
+
+Parameters:
+waveform_pulsewaves_start_arr: *1D array of ints*
+- Array of start indices for each waveform in the PulseWaves file. Multiple pulsewaves files mean multiple start indices
+waveform_pulsewaves_end_arr: *1D array of ints*
+- Array of end indices for each waveform in the PulseWaves file
+pls_file: *str*
+- Directory link to the Pulse file
+wvs_file: *str*
+- Directory link to the Waveforms file
+
+Returns:
+waveform_cum_energy: *2D array of floats*
+- 2D array of cumulative return curves for each waveform in the PulseWaves file.
+
+**k-means clustering cells**
+- First cell only clusters based on the waveform relative elevation for 500,000 waveforms
+- The second cell only clusters based on waveforms with in-situ biomass data, but includes the entire canopy height taken by subtracting DTM surface elevation from the waveform elevation and making that number the first datapoint
+- Generates a cluster assignment for each waveform and saves it to a csv file. This cluster assignment column can then be copied into the main waveform biomass table to aggregate data together, getting rid of the dummy cluster values. 
+
+### neon_processor_full specific functions
+**get_level1_lidar_pulse_information(lidar_sensor_name,lidar_instrument_name,waveform_file,air_index_of_refraction,c,ellipsoid_to_geoid_offset)**
+- A function to get pulse metadata and geolocation information for multiple different AOP and non-aop sensors
+
+Parameters:
+lidar_sensor_name: *str*
+- Name of the sensor (e.g., 'Gemini', 'Galaxy')
+lidar_instrument_name: *str*
+- Full lidar system name (e.g., 'Galaxy2024', 'LMS-Q780')
+waveform_file: *str*
+- Path to the waveform file
+air_index_of_refraction: *float*
+- Index of refraction of air (not used)
+c: *float*
+- Speed of light in m/s (not used)
+ellipsoid_to_geoid_offset: *float*
+- Offset from ellipsoid to geoid (hardcoded)
+
+Returns: 
+Pulsewaves information and geolocation information in the form of various variables
+
+**get_level1_lidar_waveform(lidar_sensor_name,instrument_name,lidar_instrument_name,waveform_file,iPulse,offset_to_pulse_data,pulse_size,T_scale_factor,T_offset,x_scale_factor,x_offset,y_scale_factor,y_offset,z_scale_factor,z_offset,sampling_record_pulse_descriptor_index_lookup_array,pulse_descriptor_optical_center_to_anchor_point_array,pulse_descriptor_number_of_extra_wave_bytes_array,pulse_descriptor_number_of_samplings_array,sampling_record_bits_for_duration_from_anchor_array,sampling_record_scale_for_duration_from_anchor_array,sampling_record_offset_for_duration_from_anchor_array,sampling_record_bits_for_number_of_segments_array,sampling_record_bits_for_number_of_samples_array,sampling_record_number_of_segments_array,sampling_record_number_of_samples_array,sampling_record_bits_per_sample_array,dxdydz,xyz_bin0,xyz_lastbin,beam_name,iPulse_pos)**
+- A function to get waveform information, similar to read_NEONAOP_pulsewaves_waveform
+
+Parameters:
+Various parameters returned by **get_level1_lidar_pulse_information**
+
+Returns:
+waveform: *numpy.ndarray (float)*
+- Waveform intensity values
+waveform_x_axis: *numpy.ndarray (float)*
+- Waveform easting values
+waveform_y_axis: *numpy.ndarray (float)*
+- Waveform northing values
+waveform_z_axis: *numpy.ndarray (float)*
+- Waveform elevation values
+offset: *float*
+- Smallest intensity value in the waveform
+stdev: *float*
+- Standard deviation of the waveform intensity values
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Any contributions you make are greatly appreciated. This project is open source so that contributions can be made by anyone. If you would like to contribute, please follow the steps below.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with a tag too.
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/Feature`)
+3. Commit your Changes (`git commit -m 'Add some Feature'`)
+4. Push to the Branch (`git push origin feature/Feature`)
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -702,12 +798,12 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-Felix Yu - yu.felix39@gmail.com
-
+Created by:
+Felix Yu - yu.felix39@gmail.com, with the help of others.
+Felix's LinkedIn: [https://www.linkedin.com/in/felixwyu/](https://www.linkedin.com/in/felixwyu/)
 Project Link: [https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor](https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- ACKNOWLEDGMENTS -->
 
 ## Acknowledgments
