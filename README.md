@@ -809,7 +809,7 @@ Project Link: [https://github.com/feyu39/Neon-Full-Waveform-LiDAR-Processor](htt
 
 ## Acknowledgments
 
-- Thank you Dr. Jessica Fayne and Dr. Keith Krause for your guidance, support, and contributions to this project. Thank you to the University of Michigan and Dr. Fayne's Remote Sensing Lab (HYLUCC) for providing the resources and support to make this project possible.
+- Thank you Dr. Jessica Fayne, Dr. Keith Krause, and Dr. Alexander Rodríguez for your guidance, support, and contributions to this project. Thank you to the University of Michigan and Dr. Fayne's Remote Sensing Lab (HYLUCC) for providing the resources and support to make this project possible.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
